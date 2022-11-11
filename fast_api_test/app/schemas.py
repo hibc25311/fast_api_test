@@ -21,10 +21,10 @@ class ProductBase(BaseModel):
 
 
 class OrderBase(BaseModel):
-    id: int
-    customer_name: str
+    id: Optional[int]
+    customer_name: Optional[str]
     customer_id: int
-    puechase_time: datetime
+    puechase_time: Optional[datetime]
 
     class Config:
         orm_mode = True
@@ -33,10 +33,10 @@ class OrderBase(BaseModel):
 class OrderItemBase(BaseModel):
 
     order_id: int
-    product_name: str
+    product_name: Optional[str]
     amount: int
     product_id: int
-    price: int
+    price: Optional[int]
 
     class Config:
         orm_mode = True
@@ -47,13 +47,8 @@ class CustomerSchema(CustomerBase):
 
 
 class ProductSchema(ProductBase):
-    orders: List[OrderBase]
+    orders: List[OrderItemBase]
 
 
 class OrderSchema(OrderBase):
-    products: List[ProductBase]
-
-
-class OrderItemSchema(OrderItemBase):
-    products: List[ProductBase]
-    orders: List[OrderBase]
+    products: List[OrderItemBase]
